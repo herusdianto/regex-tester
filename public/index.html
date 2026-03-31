@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Heru Rusdianto">
+    <title>Regex Tester - Test Your Regular Expressions</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+    <div class="topbar">
+        <a href="https://github.com/herusdianto" class="github-link" target="_blank" rel="noopener noreferrer" title="GitHub Repository">
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.11.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z" fill="currentColor"/>
+            </svg>
+        </a>
+        <div class="theme-toggle">
+            <button id="theme-switch" aria-label="Toggle dark/light mode" class="theme-toggle-btn">
+                <span id="theme-icon"></span>
+            </button>
+        </div>
+    </div>
+
+    <header>
+        <h1>Regex Tester</h1>
+        <p>Test your regular expressions with ease</p>
+        <p class="client-side-note"><strong>100% Client-side:</strong> All processing happens in your browser. <u>No data is sent to any server.</u></p>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Pattern Section -->
+            <div class="pattern-section">
+                <h2>Pattern</h2>
+                
+                <!-- Pattern Input -->
+                <div class="pattern-input-container">
+                    <span class="pattern-delimiter">/</span>
+                    <input type="text" id="regex-pattern" class="pattern-input" placeholder="Enter your regex pattern">
+                    <span class="pattern-delimiter">/</span>
+                    <div class="flags-container">
+                        <label class="flag-option" title="Global">
+                            <input type="checkbox" id="flag-g" checked>
+                            <span>g</span>
+                        </label>
+                        <label class="flag-option" title="Case Insensitive">
+                            <input type="checkbox" id="flag-i">
+                            <span>i</span>
+                        </label>
+                        <label class="flag-option" title="Multiline">
+                            <input type="checkbox" id="flag-m">
+                            <span>m</span>
+                        </label>
+                        <label class="flag-option" title="Dotall">
+                            <input type="checkbox" id="flag-s">
+                            <span>s</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pattern Error -->
+                <div class="pattern-error hidden" id="pattern-error"></div>
+
+                <!-- Test String -->
+                <div class="test-string-section">
+                    <h3>Test String</h3>
+                    <textarea id="test-string" class="test-string-input" placeholder="Enter text to test against your regex...">Hello World! This is a test string with numbers 123 and 456.</textarea>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <div class="results-header">
+                    <h2>Results</h2>
+                    <div class="results-meta" id="results-meta">
+                        <span class="match-count" id="match-count">0 matches</span>
+                    </div>
+                </div>
+
+                <!-- Results Tabs -->
+                <div class="results-tabs">
+                    <button class="result-tab-btn active" data-result-tab="matches">Matches</button>
+                    <button class="result-tab-btn" data-result-tab="groups">Groups</button>
+                    <button class="result-tab-btn" data-result-tab="details">Details</button>
+                </div>
+
+                <!-- Matches Tab -->
+                <div class="result-tab-content active" id="matches-tab">
+                    <div class="matches-list" id="matches-list">
+                        <p class="placeholder-text">Enter a pattern and test string to see matches.</p>
+                    </div>
+                </div>
+
+                <!-- Groups Tab -->
+                <div class="result-tab-content" id="groups-tab">
+                    <div class="groups-list" id="groups-list">
+                        <p class="placeholder-text">No captured groups found.</p>
+                    </div>
+                </div>
+
+                <!-- Details Tab -->
+                <div class="result-tab-content" id="details-tab">
+                    <div class="details-content" id="details-content">
+                        <p class="placeholder-text">Enter a pattern to see details.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section">
+            <div class="history-header">
+                <h2>History</h2>
+                <button class="clear-history-btn" id="clear-history-btn">Clear All</button>
+            </div>
+            <div class="history-list" id="history-list">
+                <p class="placeholder-text">No patterns yet. Test a regex to see it here.</p>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="status" class="status hidden"></div>
+    </div>
+
+    <footer>
+        <p>Created by <a href="https://herusdianto.github.io/" target="_blank" rel="noopener noreferrer">Heru Rusdianto</a> with AI Assistance</p>
+        <p class="copyright">
+            © <span id="currentYear"></span> All rights reserved
+        </p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
